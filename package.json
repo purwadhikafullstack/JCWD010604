@@ -14,10 +14,13 @@
     "client": "lerna exec --scope client yarn"
   },
   "private": true,
-  "devDependencies": {
+  "devDependencies": {  
     "lerna": "^5.4.0"
   },
   "workspaces": [
     "projects/*"
-  ]
+  ],
+  "dependencies": {
+    "nodemon": "^2.0.21"
+  }
 }

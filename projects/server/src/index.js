@@ -2,6 +2,8 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
+const db = require("./models");
+const path = require("path");
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -15,6 +17,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 //#region API ROUTES
 
@@ -70,5 +74,7 @@ app.listen(PORT, (err) => {
     console.log(`ERROR: ${err}`);
   } else {
     console.log(`APP RUNNING at ${PORT} ✅`);
+    db.sequelize.sync({ force: true });
   }
+  
 });
