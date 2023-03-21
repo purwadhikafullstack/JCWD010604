@@ -2,13 +2,9 @@ import React, { ReactNode } from "react";
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
   Link,
-  IconButton,
-  Button,
   Menu,
-  MenuButton,
   MenuList,
   MenuItem,
   MenuDivider,
@@ -16,11 +12,19 @@ import {
   useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
+import FeatureBox from "../components/feature";
+import Card from "../components/homeproduct";
+import Footer from "../components/footer";
+import Categories from "../components/categories";
+const Links = [
+  { label: "Home", component: FeatureBox },
+  { label: "Promo", component: Categories },
+  { label: "Top Brands", component: Card },
+  { label: "Top Products", component: Categories },
+  { label: "About Us", component: Footer },
+];
 
-const Links = ["Home", "Promo", "Top Brands", "Top Products", "About Us"];
-
-const NavLink = ({ children }) => (
+const NavLink = ({ children, onClick }) => (
   <Link
     px={2}
     py={1}
@@ -30,6 +34,7 @@ const NavLink = ({ children }) => (
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
     href={"#"}
+    onClick={onClick}
   >
     {children}
   </Link>
@@ -37,6 +42,12 @@ const NavLink = ({ children }) => (
 
 export default function Navbar2() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [activeComponent, setActiveComponent] = React.useState(FeatureBox);
+
+  const handleLinkClick = (component) => {
+    setActiveComponent(component);
+    onClose();
+  };
 
   return (
     <>
@@ -49,8 +60,10 @@ export default function Navbar2() {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {Links.map(({ label, component }) => (
+                <NavLink key={label} onClick={() => handleLinkClick(component)}>
+                  {label}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -69,12 +82,17 @@ export default function Navbar2() {
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {Links.map(({ label, component }) => (
+                <NavLink key={label} onClick={() => handleLinkClick(component)}>
+                  {label}
+                </NavLink>
               ))}
             </Stack>
           </Box>
         ) : null}
+      </Box>
+      <Box mt={8}>
+        <activeComponent />
       </Box>
     </>
   );

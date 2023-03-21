@@ -13,6 +13,8 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { FaShoppingCart } from "react-icons/fa";
 import Phonehub_logo from "../assets/Phonehub_logo.png";
 import React from "react";
+import { RegisterModal } from "./register";
+// import { Login } from "./components/login";
 
 export default function Navbar() {
   return (
@@ -27,7 +29,12 @@ export default function Navbar() {
           flexWrap="wrap"
           justifyContent={{ base: "center", md: "flex-start" }}
         >
-          <Link color="white" fontWeight="bold" href="#" marginLeft={"50px"}>
+          <Link
+            color="white"
+            fontWeight="bold"
+            href="/home"
+            marginLeft={"50px"}
+          >
             <Image
               src={Phonehub_logo}
               maxH={{ base: "100px", md: "180px" }}
@@ -72,6 +79,10 @@ export default function Navbar() {
         </Flex>
         <Flex justifyContent={{ base: "center", md: "flex-end" }}>
           <Button
+            fontWeight={600}
+            href={"#"}
+            // onClick={onOpenLogin}
+            pt={{ base: "3", md: 0 }}
             colorScheme="black"
             backgroundColor={"orange"}
             variant="outline"
@@ -82,7 +93,7 @@ export default function Navbar() {
           >
             Masuk
           </Button>
-          <Button
+          <RegisterModal
             colorScheme="orange"
             textColor={"orange"}
             variant="outline"
@@ -92,7 +103,7 @@ export default function Navbar() {
             height={{ base: "50px", md: "60px" }}
           >
             Daftar
-          </Button>
+          </RegisterModal>
         </Flex>
       </Flex>
     </Box>

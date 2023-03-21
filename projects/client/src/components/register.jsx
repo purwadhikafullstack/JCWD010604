@@ -66,15 +66,13 @@ export const RegisterModal = () => {
   return (
     <>
       <Button
-        display={{ base: "solid", md: "inline-flex" }}
-        fontSize={"sm"}
-        fontWeight={600}
-        color={"white"}
-        bg={"pink.400"}
-        href={"#"}
-        _hover={{
-          bg: "pink.300",
-        }}
+        colorScheme="orange"
+        textColor={"orange"}
+        variant="outline"
+        backgroundColor={"black"}
+        fontSize={{ base: "sm", md: "xl" }}
+        display={{ base: "none", md: "inline-flex" }}
+        height={{ base: "50px", md: "60px" }}
         onClick={onOpen}
       >
         Sign Up

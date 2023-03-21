@@ -1,4 +1,4 @@
-import { Center, Flex, Box, HStack, Link } from "@chakra-ui/react";
+import { Center, Flex, Box, HStack } from "@chakra-ui/react";
 import Navbar4 from "../components/navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -9,6 +9,9 @@ import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
 import Categories from "../components/categories";
+import ProductDetail from "../components/productdetail";
+import { Link } from "react-router-dom";
+// import { Login } from "./components/login";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -43,18 +46,10 @@ export default function Home() {
           alignItems="center"
           paddingTop={"5"}
         >
-          <Link>
+          <Link to="/productdetail">
             <Card />
           </Link>
-          <Link>
-            <Card />
-          </Link>
-          <Link>
-            <Card />
-          </Link>
-          <Link>
-            <Card />
-          </Link>
+  
         </Flex>
 
         <Box paddingTop={"60pt"}>

@@ -7,10 +7,10 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
+import ProductDetail from "./productdetail";
 
 const IMAGE =
-  "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
-
+  "https://www.mytrendyphone.co.uk/images/iPhone-11-Pro-Max-512GB-Midnight-Green-0190199385337-18092019-03-p.jpg";
 export default function Card() {
   return (
     <Center py={12}>
@@ -51,7 +51,7 @@ export default function Card() {
         >
           <Image
             rounded={"lg"}
-            height={230}
+            height={"300"}
             width={282}
             objectFit={"cover"}
             src={IMAGE}
@@ -62,15 +62,13 @@ export default function Card() {
             Brand
           </Text>
           <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-            Nice Chair, pink
+            iPhone 14 Pro Max
           </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
-              $57
+              Rp.27.999.999
             </Text>
-            <Text textDecoration={"line-through"} color={"gray.600"}>
-              $199
-            </Text>
+
           </Stack>
         </Stack>
       </Box>
