@@ -1,26 +1,74 @@
-import axios from "axios";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
-import { useEffect, useState } from "react";
+
+// react
+import Axios from "axios";
+import { useEffect, useCallback } from "react";
+import { Routes, Route } from "react-router-dom";
+
+// components
+import { ProtectingRoute } from "./components/ProtectingRoute";
+
+// pages
+import { AdminPage } from "./pages/AdminPage";
+import { LoginPage } from "./pages/Loginpage";
+
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "./redux/userSlice";
+
+const url = process.env.REACT_APP_API_BASE_URL;
 
 function App() {
-  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  const { id, role } = useSelector((state) => state.userSlice.value);
+
+  const keepLogin = useCallback(async () => {
+    try {
+      const result = await Axios.get(`${url}/user/keeplogin`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      dispatch(
+        login({
+          id: result.data.id,
+          email: result.data.email,
+          name: result.data.name,
+          is_verified: result.data.is_verified,
+          role: result.data.role,
+          picture: result.data.picture,
+        })
+      );
+
+      // const cart = await (await Axios.get(`${url}/cart/${id}`)).data;
+      // dispatch(cartUser(cart.result));
+    } catch (err) {}
+  }, [dispatch, id, token]);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/greetings`
-      );
-      setMessage(data?.message || "");
-    })();
-  }, []);
+    keepLogin();
+  }, [keepLogin]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {message}
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        {/* admin */}
+        {role === 3 ? null : (
+          <Route
+            path="/admin"
+            element={
+              // <ProtectingRoute>
+              <AdminPage />
+              // </ProtectingRoute>
+            }
+          />
+        )}
+      </Routes>
+    </>
   );
 }
 
