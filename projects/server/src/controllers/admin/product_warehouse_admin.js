@@ -1,0 +1,91 @@
+const db = require("../../models");
+const productWarehouses = db.Product_Warehouses;
+const journal = db.Journal;
+
+module.exports = {
+  addStocks: async (req, res) => {
+    try {
+      if (req.role === 1 || req.role === 2) {
+        throw "Unauthorize Access";
+      }
+
+      const { stocks, ProductId, WarehouseId } = req.body;
+
+      await productWarehouses.create({
+        stocks,
+        ProductId,
+        WarehouseId,
+      });
+
+      res.status(200).send("Stocks Added");
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error.message);
+    }
+  },
+  deleteStocks: async (req, res) => {
+    try {
+      if (req.role === 1 || req.role === 2) {
+        throw "Unauthorize Access";
+      }
+
+      const { ProductId, WarehouseId } = req.body;
+
+      await productWarehouses.destroy({
+        where: {
+          ProductId,
+          WarehouseId,
+        },
+      });
+
+      res.status(200).send("Stocks Deleted");
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error.message);
+    }
+  },
+  editStocks: async (req, res) => {
+    try {
+      if (req.role === 1 || req.role === 2) {
+        throw "Unauthorize Access";
+      }
+
+      const { stocks } = req.body;
+      const { ProductId, WarehouseId } = req.query;
+
+      const productWarehouse = await productWarehouses.findOne({
+        where: {
+          ProductId,
+          WarehouseId,
+        },
+        raw: true,
+      });
+
+      await journal.create({
+        stock_before: productWarehouse?.stocks,
+        stock_after: stocks,
+        desc: "Stock Update",
+        // JournalTypeId: stocks > productWarehouse?.stocks ? 1 : 2,
+        ProductId,
+        WarehouseId,
+      });
+
+      await productWarehouses.update(
+        {
+          stocks,
+        },
+        {
+          where: {
+            ProductId,
+            WarehouseId,
+          },
+        }
+      );
+
+      res.status(200).send("Stocks Updated");
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error.message);
+    }
+  },
+};
