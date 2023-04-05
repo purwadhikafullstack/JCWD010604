@@ -26,7 +26,7 @@ import {
 import Swal from "sweetalert2";
 
 // icons
-import { BsFillGearFill } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
 import { RxCheck, RxCross1 } from "react-icons/rx";
 
 export const EditCategory = ({ category, getCategory }) => {
@@ -34,7 +34,7 @@ export const EditCategory = ({ category, getCategory }) => {
 
   return (
     <Box>
-      <IconButton icon={<BsFillGearFill />} bg={"none"} onClick={onOpen} />
+      <IconButton icon={<FiEdit />} bg={"none"} onClick={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

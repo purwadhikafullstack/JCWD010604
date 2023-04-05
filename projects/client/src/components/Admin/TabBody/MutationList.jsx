@@ -22,68 +22,102 @@ import {
   Stack,
   Skeleton,
   Text,
-  Button,
 } from "@chakra-ui/react";
 
 // swal
 import Swal from "sweetalert2";
 
 // icons
-import { BiSearch } from "react-icons/bi";
-import { BsFillTrashFill, BsArrowUp, BsArrowDown } from "react-icons/bs";
+import { BsArrowUp, BsArrowDown } from "react-icons/bs";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 import { RxReload } from "react-icons/rx";
+import { RxCheck, RxCross1 } from "react-icons/rx";
+import { BiSearch } from "react-icons/bi";
 
-// Props
-import { AddCategory } from "./CategoryProps/AddCategory";
-import { EditCategory } from "./CategoryProps/EditCategory";
+// props
+import { AddMutation } from "./MutationProps/AddMutation";
 
-export const CategoryList = () => {
+export const MutationList = () => {
   const url = process.env.REACT_APP_API_BASE_URL + "/admin/";
   const token = localStorage.getItem("token");
 
-  const { role } = useSelector((state) => state.userSlice.value);
+  const { id, role } = useSelector((state) => state.userSlice.value);
 
-  const [category, setCategory] = useState();
+  const [mutations, setMutations] = useState();
+  const [warehouses, setWarehouses] = useState();
+  const [warehouseId, setWarehouseId] = useState();
+  const [products, setProducts] = useState();
   const [sort, setSort] = useState("id");
-  const [direction, setDirection] = useState("ASC");
+  const [direction, setDirection] = useState("DESC");
   const [pagination, setPagination] = useState(0);
   const [pages, setPages] = useState();
   const [search, setSearch] = useState(``);
 
   const searchValue = useRef(``);
 
-  const getCategory = useCallback(async () => {
+  const getMutations = useCallback(async () => {
     try {
-      const productURL =
+      const mutationsURL =
         url +
-        `all_category?search=${search}&sort=${sort}&direction=${direction}&pagination=${pagination}`;
+        `all_mutations?search=${search}&role=${role}&userId=${id}&sort=${sort}&direction=${direction}&pagination=${pagination}`;
 
-      const result = await Axios.get(productURL, {
+      const resultMutation = await Axios.get(mutationsURL, {
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
-      setCategory(result.data.result);
-      setPages(result.data.pages);
+
+      setMutations(resultMutation.data.result);
+      setPages(resultMutation.data.pages);
+      setWarehouses(resultMutation.data.allWarehouse);
+      setProducts(resultMutation.data.allProducts);
+      setWarehouseId(resultMutation.data.warehouse);
 
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     } catch (err) {}
-  }, [url, direction, pagination, search, sort, token]);
+  }, [url, id, role, sort, direction, pagination, search, token]);
 
-  const deleteCategory = async (id) => {
-    try {
-      await Axios.delete(url + `delete_category/${id}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      getCategory();
-    } catch (err) {}
-  };
+  const approvalFunc = useCallback(
+    async (
+      ItemId,
+      WarehouseIdTo,
+      WarehouseIdFrom,
+      ProductId,
+      approvalValue
+    ) => {
+      try {
+        await Axios.patch(
+          url +
+            `approval_mutation/${ItemId}?WarehouseIdTo=${WarehouseIdTo}&WarehouseIdFrom=${WarehouseIdFrom}&ProductId=${ProductId}`,
+          { approval: approvalValue },
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        getMutations();
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: err.response.data.name
+            ? err.response.data.errors[0].message.toUpperCase()
+            : err.response.data.toUpperCase(),
+        });
+      }
+    },
+    [url, getMutations, token]
+  );
 
-  const deleteWarning = async (id) => {
+  const approvalWarning = async (
+    ItemId,
+    WarehouseIdTo,
+    WarehouseIdFrom,
+    ProductId,
+    approvalValue
+  ) => {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -92,11 +126,17 @@ export const CategoryList = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Yes, accept request!",
       }).then((result) => {
         if (result.isConfirmed) {
-          deleteCategory(id);
-          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          approvalFunc(
+            ItemId,
+            WarehouseIdTo,
+            WarehouseIdFrom,
+            ProductId,
+            approvalValue
+          );
+          Swal.fire("Success!", "Mutation Updated", "success");
         }
       });
     } catch (err) {
@@ -111,23 +151,29 @@ export const CategoryList = () => {
   };
 
   useEffect(() => {
-    getCategory();
-  }, [getCategory]);
+    getMutations();
+  }, [getMutations]);
 
   const tableHead = [
-    { name: "Id", origin: "Id", width: "100px" },
-    { name: "Category", origin: "category", width: "" },
+    { name: "Id", origin: "id", width: "50px" },
+    { name: "Request Warehouse", origin: "IdWarehouseTo", width: "100px" },
+    { name: "Response Warehouse", origin: "IdWarehouseFrom", width: "100px" },
+    { name: "Product Id", origin: "ProductId", width: "150px" },
+    { name: "Quantity", origin: "quantity", width: "150px" },
+    { name: "Approval", origin: "approval", width: "200px" },
+    { name: "Invoice", origin: "invoice", width: "150px" },
+    { name: "Time", origin: "createdAt", width: "150px" },
   ];
 
   return (
-    <Box>
+    <Box padding={{ base: "10px", lg: "0" }}>
       <Center paddingBottom={"12px"}>
         <Stack>
           <Flex>
             <Box paddingRight={"5px"}>
               <InputGroup w={{ base: "200px", lg: "400px" }}>
                 <Input
-                  placeholder={"Search"}
+                  placeholder={"Search Invoice"}
                   _focusVisible={{ border: "1px solid #b759b4" }}
                   ref={searchValue}
                 />
@@ -149,15 +195,20 @@ export const CategoryList = () => {
             <IconButton
               icon={<RxReload />}
               onClick={() => {
-                getCategory();
+                setSort("id");
+                setPagination(0);
+                setDirection("DESC");
+                getMutations();
               }}
             />
           </Flex>
-          {role === 3 ? (
-            <Center>
-              <AddCategory getCategory={getCategory} />
-            </Center>
-          ) : null}
+          <Center>
+            <AddMutation
+              warehouses={warehouses}
+              products={products}
+              warehouseId={warehouseId}
+            />
+          </Center>
         </Stack>
       </Center>
       <TableContainer borderRadius={"10px"}>
@@ -171,7 +222,7 @@ export const CategoryList = () => {
                     bg={"#00ADB5"}
                     textAlign={"center"}
                     color={"white"}
-                    width={item.width}
+                    w={item.width}
                     borderY={"none"}
                   >
                     <Center>
@@ -206,48 +257,93 @@ export const CategoryList = () => {
                   </Th>
                 );
               })}
-              {role === 3 ? (
-                <Th
-                  bg={"#00ADB5"}
-                  textAlign={"center"}
-                  color={"white"}
-                  w={"200px"}
-                  borderY={"none"}
-                >
-                  Action
-                </Th>
-              ) : null}
+              <Th
+                bg={"#00ADB5"}
+                textAlign={"center"}
+                color={"white"}
+                w={"200px"}
+                borderY={"none"}
+              >
+                Action
+              </Th>
             </Tr>
           </Thead>
-          {category ? (
-            category.map((item, index) => {
+          {mutations ? (
+            mutations?.map((item, index) => {
+              let approval;
+
+              if (item.approval === null) {
+                approval = <Td textAlign={"center"}>Request</Td>;
+              } else if (item.approval === false) {
+                approval = (
+                  <Td textAlign={"center"} color={"red"}>
+                    Denied
+                  </Td>
+                );
+              } else if (item.approval === true) {
+                approval = (
+                  <Td textAlign={"center"} color={"green"}>
+                    Accepted
+                  </Td>
+                );
+              }
+
               return (
                 <Tbody key={index} bg={"#EEEEEE"} _hover={{ bg: "#d6d6d6" }}>
                   <Tr>
                     <Td textAlign={"center"}>{item.id}</Td>
-                    <Td>{item.category}</Td>
-                    {role === 3 ? (
-                      <Td>
+                    <Td textAlign={"center"}>{item.IdWarehouseTo}</Td>
+                    <Td textAlign={"center"}>{item.IdWarehouseFrom}</Td>
+                    <Td textAlign={"center"}>{item.ProductId}</Td>
+                    <Td textAlign={"center"}>{item.quantity}</Td>
+                    {approval}
+                    <Td textAlign={"center"}>{item.invoice}</Td>
+                    <Td textAlign={"center"}>
+                      <Stack>
+                        <Text>{item.createdAt.slice(0, 10)}</Text>
+                        <Text>{item.createdAt.slice(11, 19)}</Text>
+                      </Stack>
+                    </Td>
+                    <Td>
+                      {item.approval === null ? (
                         <Flex
                           gap={"20px"}
                           justifyContent={"center"}
                           alignItems={"center"}
                         >
-                          <EditCategory
-                            category={category[index]}
-                            getCategory={getCategory}
+                          <IconButton
+                            onClick={() => {
+                              approvalWarning(
+                                item.id,
+                                item.IdWarehouseTo,
+                                item.IdWarehouseFrom,
+                                item.ProductId,
+                                1
+                              );
+                            }}
+                            bg={"none"}
+                            fontSize={"3xl"}
+                            color={"green"}
+                            icon={<RxCheck />}
                           />
                           <IconButton
                             onClick={() => {
-                              deleteWarning(item.id);
+                              approvalWarning(
+                                item.id,
+                                item.IdWarehouseTo,
+                                item.IdWarehouseFrom,
+                                item.ProductId,
+                                0
+                              );
                             }}
                             bg={"none"}
+                            fontSize={"xl"}
                             color={"#ff4d4d"}
-                            icon={<BsFillTrashFill />}
+                            icon={<RxCross1 />}
                           />
                         </Flex>
-                      </Td>
-                    ) : null}
+                      ) : null}
+                    </Td>
                   </Tr>
                 </Tbody>
               );
@@ -262,11 +358,9 @@ export const CategoryList = () => {
                     </Td>
                   );
                 })}
-                {role === 3 ? (
-                  <Td>
-                    <Skeleton h={"10px"} />
-                  </Td>
-                ) : null}
+                <Td>
+                  <Skeleton h={"10px"} />
+                </Td>
               </Tr>
             </Tbody>
           )}

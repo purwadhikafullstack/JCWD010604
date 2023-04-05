@@ -21,7 +21,7 @@ import {
 
 const url = process.env.REACT_APP_API_BASE_URL;
 
-export default function Login() {
+export const Login = () => {
   const {
     isOpen: isOpenLogin,
     onOpen: onOpenLogin,
@@ -42,6 +42,7 @@ export default function Login() {
       };
 
       const result = await axios.post(`${url}/user/login`, user);
+      
       dispatch(
         login({
           id: result.data.id,
@@ -50,7 +51,8 @@ export default function Login() {
           isVerified: result.data.isVerified,
           role: result.data.role,
           picture: result.data.picture,
-        })
+        }),
+        // console.log(result.data.isUserExist.role)
       );
 
       if (
@@ -61,6 +63,7 @@ export default function Login() {
       }
 
       localStorage.setItem("token", result.data.token);
+      // console.log(result.data.token)
 
       Swal.fire({
         icon: "success",

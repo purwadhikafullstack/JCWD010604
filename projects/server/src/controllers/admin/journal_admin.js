@@ -75,6 +75,7 @@ module.exports = {
 
       res.status(200).send({ result: rows, pages: Math.ceil(count / 10) });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

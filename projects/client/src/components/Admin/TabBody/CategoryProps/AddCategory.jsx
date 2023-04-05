@@ -110,7 +110,7 @@ const AddForm = ({ close, getCategory }) => {
             <Form>
               <FormControl isRequired>
                 <FormLabel>Category Name</FormLabel>
-                <Input as={Field} name={"category"} placeholder={"Mouse"} />
+                <Input as={Field} name={"category"} />
                 <ErrorMessage
                   style={{ color: "red" }}
                   component="div"

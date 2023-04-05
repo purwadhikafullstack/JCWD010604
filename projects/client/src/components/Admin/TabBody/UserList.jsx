@@ -117,11 +117,17 @@ export const UserList = () => {
   }, [getUsers]);
 
   const tableHead = [
-    { name: "Id", origin: "id", width: "100px" },
+    { name: "NO", origin: "NO", width: "100px" },
     { name: "Email", origin: "email", width: "" },
     { name: "Name", origin: "name", width: "700px" },
     { name: "Role", origin: "role", width: "50px" },
   ];
+
+  const roles = {
+    1: "User",
+    2: "Admin Warehouse",
+    3: "Super Admin"
+  };
 
   return (
     <Box padding={{ base: "10px", lg: "0" }}>
@@ -151,7 +157,10 @@ export const UserList = () => {
         <IconButton
           icon={<RxReload />}
           onClick={() => {
-            getUsers();
+            setSearch("");
+            setSort("id");
+            setPagination(0);
+            setDirection("ASC");
           }}
         />
       </Center>
@@ -217,10 +226,10 @@ export const UserList = () => {
               return (
                 <Tbody key={index} bg={"#EEEEEE"} _hover={{ bg: "#d6d6d6" }}>
                   <Tr>
-                    <Td textAlign={"center"}>{item.id}</Td>
+                    <Td textAlign={"center"}>{index + 1}</Td>
                     <Td>{item.email}</Td>
                     <Td>{item.name}</Td>
-                    <Td textAlign={"center"}>{item.role}</Td>
+                    <Td textAlign={"center"}>{roles[item.role]}</Td>
                     <Td>
                       <Flex
                         gap={"20px"}

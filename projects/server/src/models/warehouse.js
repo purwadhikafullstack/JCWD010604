@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Warehouse.belongsTo(models.User);
-      //   Warehouse.hasMany(models.Stock_Mutation, {
-      //     foreignKey: "IdWarehouseFrom",
-      //   });
-        Warehouse.belongsToMany(models.Product, {
-          through: "Product_Warehouses",
-        });
-      //   Warehouse.hasMany(models.Transaction_Product_Warehouses);
-         Warehouse.hasMany(models.Journal);
+      Warehouse.hasMany(models.Stock_Mutation, {
+        foreignKey: "IdWarehouseFrom",
+      });
+      Warehouse.belongsToMany(models.Product, {
+        through: "Product_Warehouses",
+      });
+      Warehouse.hasMany(models.Transaction_Product_Warehouses);
+      Warehouse.hasMany(models.Journal);
     }
   }
   Warehouse.init(

@@ -189,7 +189,7 @@ export const ProductList = () => {
               }}
             />
           </Flex>
-          {role === 3 || 2 ? (
+          {role === 3 ? (
             <Center>
               <AddProduct
                 warehouses={warehouses}
@@ -265,7 +265,7 @@ export const ProductList = () => {
                   </Th>
                 );
               })}
-              {role === 3 || 2 ? (
+              {role === 3 ? (
                 <Th
                   bg={"#00ADB5"}
                   textAlign={"center"}
@@ -292,7 +292,7 @@ export const ProductList = () => {
                       {item.Product_Category?.category}
                     </Td>
                     <Td textAlign={"center"}>{+item.total_stocks}</Td>
-                    {role === 3 || 2 ? (
+                    {role === 3 ? (
                       <Td>
                         <Flex
                           gap={"20px"}
@@ -330,7 +330,7 @@ export const ProductList = () => {
                     </Td>
                   );
                 })}
-                {role === 3 || 2 ? (
+                {role === 3 ? (
                   <Td>
                     <Skeleton h={"10px"} />
                   </Td>

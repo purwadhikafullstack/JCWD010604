@@ -1,0 +1,9 @@
+require('dotenv').config();
+var path = require('path');
+
+const dir = "src";
+
+module.exports = {
+  config: path.resolve(dir, 'config', 'config.json'),
+  'migrations-path': path.resolve(dir, 'migrations'),
+};

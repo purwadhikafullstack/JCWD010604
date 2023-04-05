@@ -28,7 +28,7 @@ import {
 import Swal from "sweetalert2";
 
 // icons
-import { BsFillGearFill } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
 import { RxCheck, RxCross1 } from "react-icons/rx";
 
 export const EditProduct = ({ getProducts, category, item, warehouse }) => {
@@ -36,7 +36,7 @@ export const EditProduct = ({ getProducts, category, item, warehouse }) => {
 
   return (
     <Box>
-      <IconButton icon={<BsFillGearFill />} bg={"none"} onClick={onOpen} />
+      <IconButton icon={<FiEdit />} bg={"none"} onClick={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -98,7 +98,8 @@ const EditForm = ({ close, category_name, getProducts, item, warehouse }) => {
           },
         });
       }
-
+      console.log(+value.stocks);
+      console.log(item.total_stocks);
       if (+value.stocks !== item.total_stocks) {
         await Axios.patch(
           url + `edit_stocks?ProductId=${item.id}&WarehouseId=${warehouse}`,
@@ -120,6 +121,7 @@ const EditForm = ({ close, category_name, getProducts, item, warehouse }) => {
       getProducts();
       close();
     } catch (err) {
+      console.log(err)
       Swal.fire({
         icon: "error",
         title: "Error",

@@ -10,16 +10,16 @@ const {
   userProfile,
   userAddress,
   admin,
-  //orderList,
+  orderList,
 } = require("./routes");
 const {
   userComp,
   warehouseComp,
   productComp,
   categoryComp,
-  // userOrderList,
+  userOrderList,
   stocksComp,
-  // mutationComp,
+  mutationComp,
   journalComp,
   // salesAdmin,
 } = admin;
@@ -62,7 +62,7 @@ app.use("/api", user);
 app.use("/api", userProfile);
 app.use("/api", userAddress);
 app.use("/api", getProduct);
-// app.use("/api", orderList);
+app.use("/api", orderList);
 // app.use("/api", cart);
 // app.use("/api", shipment);
 
@@ -74,9 +74,9 @@ app.use(
   rajaOngkir,
   productComp,
   categoryComp,
-  // userOrderList,
+  userOrderList,
   stocksComp,
-  // mutationComp,
+  mutationComp,
    journalComp,
   // salesAdmin
 );

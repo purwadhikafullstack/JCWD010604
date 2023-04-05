@@ -43,7 +43,7 @@ export const AdminPage = () => {
   const [context, setContext] = useState(0);
 
   const { name, role, picture } = useSelector((state) => state.userSlice.value);
-
+  // console.log(useSelector((state) => state.userSlice.value));
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -177,6 +177,7 @@ export const AdminPage = () => {
   };
 
   const DrawerItems = () => {
+    //  console.log(role);
     const items =
       role === 3
         ? [
@@ -184,12 +185,19 @@ export const AdminPage = () => {
             "Warehouses",
             "Products",
             "Categories",
-            "Orders",
             "Mutations",
+            "Orders",
             "Reports",
             "Sales",
           ]
-        : ["Users", "Warehouses", "Products", "Categories", "Orders", "Mutations", "Reports", "Sales"];
+        : [
+            "Products",
+            "Categories",
+            "Mutations",
+            "Orders",
+            "Reports",
+            "Sales",
+          ];
     return (
       <Box>
         <Flex

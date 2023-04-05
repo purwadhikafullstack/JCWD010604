@@ -161,7 +161,7 @@ export const WarehouseList = () => {
   }, [getWarehouse, getAdmin, getProducts]);
 
   const tableHead = [
-    { name: "Id", origin: "id", width: "100px" },
+    //{ name: "NO", origin: "Id", width: "100px" },
     { name: "Warehouse Name", origin: "warehouse_name", width: "" },
     { name: "Province", origin: "province", width: "250px" },
     { name: "City", origin: "city", width: "150px" },
@@ -217,6 +217,15 @@ export const WarehouseList = () => {
         <Table>
           <Thead>
             <Tr>
+            <Th
+                bg={"#00ADB5"}
+                textAlign={"center"}
+                color={"white"}
+                width={"200px"}
+                borderY={"none"}
+              >
+                NO
+              </Th>
               {tableHead.map((item, index) => {
                 return (
                   <Th
@@ -275,7 +284,7 @@ export const WarehouseList = () => {
               return (
                 <Tbody key={index} bg={"#EEEEEE"} _hover={{ bg: "#d6d6d6" }}>
                   <Tr>
-                    <Td textAlign={"center"}>{item.id}</Td>
+                    <Td textAlign={"center"}>{index + 1}</Td>
                     <Td>{item.warehouse_name}</Td>
                     <Td textAlign={"center"}>{item.province}</Td>
                     <Td textAlign={"center"}>{item.city}</Td>

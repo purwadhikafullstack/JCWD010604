@@ -7,11 +7,12 @@ import { WarehouseList } from "./TabBody/WarehouseList";
 import { ProductList } from "./TabBody/ProductList";
 // import { ReportList } from "./TabBody/ReportList";
 import { CategoryList } from "./TabBody/CategoryList";
-// import { OrderList } from "./TabBody/Order/OrderList";
-// import { MutationList } from "./TabBody/MutationList";
+import { OrderList } from "./TabBody/Order/OrderList";
+import { MutationList } from "./TabBody/MutationList";
 // import { SalesList } from "./TabBody/SalesList";
 
 export const AdminBody = ({ tabNum, role }) => {
+  // console.log(role);
   const tabs =
     role === 3
       ? [
@@ -19,20 +20,20 @@ export const AdminBody = ({ tabNum, role }) => {
           WarehouseList,
           ProductList,
           CategoryList,
-          // OrderList,
-          // MutationList,
+          MutationList,
+          OrderList,
           // ReportList,
           // SalesList
         ]
       : [
-          UserList,
-          WarehouseList,
+          // UserList,
+          // WarehouseList,
           ProductList,
           CategoryList,
-          // OrderList,
-          // MutationList,
+          MutationList,
+          OrderList,
           // ReportList,
-          // SalesList,
+          // SalesList
         ];
   const TabBody = tabs[tabNum];
 

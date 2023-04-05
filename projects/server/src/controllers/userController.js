@@ -157,9 +157,10 @@ module.exports = {
         },
         raw: true,
       });
-
+      // console.log(isUserExist);
       res.status(200).send(isUserExist);
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },

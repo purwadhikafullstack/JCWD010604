@@ -3,8 +3,8 @@ const warehouseComp = require("./admin/warehouse_admin");
 const productComp = require("./admin/product_admin");
 const categoryComp = require("./admin/category_admin");
 const stocksComp = require("./admin/product_warehouse_admin");
-//const userOrderList = require("./admin/order_admin");
-//const mutationComp = require("./admin/mutation_admin");
+const userOrderList = require("./admin/order_admin");
+const mutationComp = require("./admin/mutation_admin");
 const journalComp = require("./admin/journal_admin");
 //const salesAdmin = require("./admin/sales_admin");
 
@@ -14,8 +14,8 @@ module.exports = {
   productComp,
   categoryComp,
   stocksComp,
-  //userOrderList,
-  //mutationComp,
+  userOrderList,
+  mutationComp,
   journalComp,
   //salesAdmin,
 };

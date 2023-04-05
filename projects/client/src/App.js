@@ -23,6 +23,7 @@ function App() {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { id, role } = useSelector((state) => state.userSlice.value);
+  // console.log(role)
 
   const keepLogin = useCallback(async () => {
     try {
@@ -32,15 +33,15 @@ function App() {
         },
       });
 
+      // console.log(result)
       dispatch(
         login({
           id: result.data.id,
           email: result.data.email,
           name: result.data.name,
           is_verified: result.data.is_verified,
-          role: result.data.role,
-          picture: result.data.picture,
-        })
+          role: result.data.role
+        }),
       );
 
       // const cart = await (await Axios.get(`${url}/cart/${id}`)).data;
@@ -57,7 +58,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         {/* admin */}
-        {role === 3 ? null : (
+        {role === 1 ? null : (
           <Route
             path="/admin"
             element={

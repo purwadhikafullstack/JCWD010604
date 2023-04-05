@@ -18,8 +18,9 @@ module.exports = {
       });
 
       res.status(200).send("Stocks Added");
-    } catch (err) {
-      res.status(400).send(err);
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error.message);
     }
   },
   deleteStocks: async (req, res) => {
@@ -38,8 +39,9 @@ module.exports = {
       });
 
       res.status(200).send("Stocks Deleted");
-    } catch (err) {
-      res.status(400).send(err);
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error.message);
     }
   },
   editStocks: async (req, res) => {
@@ -60,10 +62,10 @@ module.exports = {
       });
 
       await journal.create({
-        stock_before: productWarehouse.stocks,
+        stock_before: productWarehouse?.stocks,
         stock_after: stocks,
         desc: "Stock Update",
-        JournalTypeId: stocks > productWarehouse.stocks ? 6 : 5,
+        // JournalTypeId: stocks > productWarehouse?.stocks ? 1 : 2,
         ProductId,
         WarehouseId,
       });
@@ -81,8 +83,9 @@ module.exports = {
       );
 
       res.status(200).send("Stocks Updated");
-    } catch (err) {
-      res.status(400).send(err);
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error.message);
     }
   },
 };

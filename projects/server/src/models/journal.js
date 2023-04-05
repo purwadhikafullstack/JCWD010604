@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //Journal.belongsTo(models.Transaction);
+      Journal.belongsTo(models.Transaction);
       Journal.belongsTo(models.Journal_Type);
-      //Journal.belongsTo(models.Stock_Mutation);
+      Journal.belongsTo(models.Stock_Mutation);
       Journal.belongsTo(models.Product);
       Journal.belongsTo(models.Warehouse);
     }
