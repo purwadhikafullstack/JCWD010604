@@ -65,7 +65,7 @@ module.exports = {
         stock_before: productWarehouse?.stocks,
         stock_after: stocks,
         desc: "Stock Update",
-        // JournalTypeId: stocks > productWarehouse?.stocks ? 1 : 2,
+        JournalTypeId: stocks > productWarehouse.stocks ? 6 : 5,
         ProductId,
         WarehouseId,
       });

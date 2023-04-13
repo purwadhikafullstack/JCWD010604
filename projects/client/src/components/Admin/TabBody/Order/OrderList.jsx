@@ -113,7 +113,7 @@ export const OrderList = () => {
 
   const cancelOrder = async (order) => {
     try {
-      const once = await swal("Cancel this order?", {
+      const once = await swal.fire("Cancel this order?", {
         dangerMode: true,
         buttons: true,
       });

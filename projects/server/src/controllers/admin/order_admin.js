@@ -709,30 +709,30 @@ module.exports = {
           });
         }
 
-        const user = await User.findOne({
-          where: { id: userTransaction.IdUser },
-          attributes: ["email"],
-          raw: true,
-        });
+        // const user = await User.findOne({
+        //   where: { id: userTransaction.IdUser },
+        //   attributes: ["email"],
+        //   raw: true,
+        // });
 
-        const tempEmail = fs.readFileSync(
-          path.resolve(__dirname, "../../template/order-cancel.html"),
-          "utf-8"
-        );
-        const tempCompile = handlebars.compile(tempEmail);
-        const tempResult = tempCompile({
-          link: `${FEURL_BASE}/order-list`,
-          transactionInformation: userTransaction,
-          price: userTransaction.final_price.toLocaleString(),
-          email: user.email,
-        });
+        // const tempEmail = fs.readFileSync(
+        //   path.resolve(__dirname, "../../template/order-cancel.html"),
+        //   "utf-8"
+        // );
+        // const tempCompile = handlebars.compile(tempEmail);
+        // const tempResult = tempCompile({
+        //   link: `${FEURL_BASE}/order-list`,
+        //   transactionInformation: userTransaction,
+        //   price: userTransaction.final_price.toLocaleString(),
+        //   email: user.email,
+        // });
 
-        await transporter.sendMail({
-          from: "Admin",
-          to: user.email,
-          subject: `Order Canceled`,
-          html: tempResult,
-        });
+        // await transporter.sendMail({
+        //   from: "Admin",
+        //   to: user.email,
+        //   subject: `Order Canceled`,
+        //   html: tempResult,
+        // });
 
         return res.status(201).send({
           status: userTransaction.OrderStatusId,
@@ -741,6 +741,7 @@ module.exports = {
       }
       return res.status(201).send({ message: "Cancel Order" });
     } catch (error) {
+      console.log(error)
       res.status(400).send(error);
     }
   },
