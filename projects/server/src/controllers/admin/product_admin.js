@@ -29,6 +29,7 @@ module.exports = {
 
       res.status(200).send({ msg: "Product Added", id: result.id });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -46,6 +47,7 @@ module.exports = {
 
       res.status(200).send("Edit Successful");
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -63,6 +65,7 @@ module.exports = {
 
       res.status(200).send("Product Deleted");
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -108,6 +111,7 @@ module.exports = {
         .status(200)
         .send({ pages: Math.ceil(count.length / 10), result: rows, raw });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
@@ -149,6 +153,7 @@ module.exports = {
 
       res.status(200).send({ pages: Math.ceil(count / 10), result: rows });
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
