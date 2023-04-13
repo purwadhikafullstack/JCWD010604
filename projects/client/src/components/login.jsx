@@ -1,133 +1,143 @@
-// import React from "react";
-// import { useRef } from "react";
-// import { useDispatch } from "react-redux";
-// import { login } from "../redux/userSlice";
-// import Axios from "axios";
-// import Swal from "sweetalert2";
-// import { ResetPassword } from "./ResetPasswordModal";
+import React from "react";
+import { useRef } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/userSlice";
+import Swal from "sweetalert2";
+import { ResetPassword } from "./ResetPasswordModal";
 
-// import {
-//   Button,
-//   useDisclosure,
-//   Modal,
-//   ModalOverlay,
-//   ModalContent,
-//   ModalHeader,
-//   ModalFooter,
-//   ModalBody,
-//   ModalCloseButton,
-//   FormControl,
-//   FormLabel,
-//   Input,
-// } from "@chakra-ui/react";
-// const url = process.env.REACT_APP_API_BASE_URL;
+import {
+  Button,
+  Modal,
+  useDisclosure,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
 
-// export default function Login() {
-//   const {
-//     isOpen: isOpenLogin,
-//     onOpen: onOpenLogin,
-//     onClose: onCloseLogin,
-//   } = useDisclosure();
+const url = process.env.REACT_APP_API_BASE_URL;
 
-//   const dispatch = useDispatch();
+export const Login= () => {
+  const {
+    isOpen: isOpenLogin,
+    onOpen: onOpenLogin,
+    onClose: onCloseLogin,
+  } = useDisclosure();
 
-//   const inputEmail = useRef("");
-//   const inputPass = useRef("");
+  const dispatch = useDispatch();
 
-//   // const onLogin = async (e) => {
-//   //   e.preventDefault();
-//   //   try {
-//   //     const user = {
-//   //       email: inputEmail.current.value,
-//   //       password: inputPass.current.value,
-//   //     };
+  const inputEmail = useRef("");
+  const inputPass = useRef("");
 
-//   //     const result = await Axios.post(`${url}/user/login`, user);
-//   //     dispatch(
-//   //       login({
-//   //         id: result.data.id,
-//   //         email: result.data.email,
-//   //         name: result.data.name,
-//   //         is_verified: result.data.is_verified,
-//   //         role: result.data.role,
-//   //         picture: result.data.picture,
-//   //       })
-//   //     );
+  const onLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = {
+        email: inputEmail.current.value,
+        password: inputPass.current.value,
+      };
 
-//   // //     if (
-//   // //       result.data.isUserExist.role === 2 ||
-//   // //       result.data.isUserExist.role === 3
-//   // //     ) {
-//   // //       // window.location.replace("/admin");
-//   // //     }
+      const result = await axios.post(`${url}/user/login`, user);
+      dispatch(
+        login({
+          id: result.data.id,
+          email: result.data.email,
+          name: result.data.name,
+          isVerified: result.data.isVerified,
+          role: result.data.role,
+          picture: result.data.picture,
+        })
+      );
 
-//   // //     localStorage.setItem("token", result.data.token);
+      if (
+        result.data.isUserExist.role === 2 ||
+        result.data.isUserExist.role === 3
+      ) {
+        window.location.replace("/admin");
+      }
 
-//   // //     Swal.fire({
-//   // //       icon: "success",
-//   // //       title: "Login Success",
-//   // //       text: `${result.data.message}`,
+      localStorage.setItem("token", result.data.token);
 
-//   // //       customClass: {
-//   // //         container: "my-swal",
-//   // //       },
-//   // //     });
+      Swal.fire({
+        icon: "success",
+        title: "Login Success",
+        text: `${result.data.message}`,
 
-//   // //     onCloseLogin();
-//   // //   } catch (err) {
-//   // //     Swal.fire({
-//   // //       icon: "error",
-//   // //       title: "Failed Attempt",
-//   // //       text: err.response.data ? err.response.data : "Something Went Wrong !",
+        customClass: {
+          container: "my-swal",
+        },
+      });
 
-//   // //       customClass: {
-//   // //         container: "my-swal",
-//   // //       },
-//   // //     });
-//   // //   }
-//   // // };
+      onCloseLogin();
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Failed Attempt",
+        text: err.response.data ? err.response.data : "Something Went Wrong !",
 
-//   return (
-//     <>
-      // <Button
-        // fontWeight={600}
-        // href={"#"}
-        // onClick={onOpenLogin}
-        // pt={{ base: "3", md: 0 }}
-        // colorScheme="black"
-        // backgroundColor={"orange"}
-        // variant="outline"
-        // mr={{ base: "2", md: "8" }}
-        // fontSize={{ base: "sm", md: "xl" }}
-        // display={{ base: "none", md: "inline-flex" }}
-        // height={{ base: "50px", md: "60px" }}
-      // >
-      //   Sign In
-      // </Button>
-//       <Modal isOpen={isOpenLogin} onClose={onCloseLogin}>
-//         <ModalOverlay />
-//         <ModalContent>
-//           <ModalHeader>Sign In to your Account</ModalHeader>
-//           <ModalCloseButton />
-//           <ModalBody pb={5}>
-//             <form>
-//               <FormControl>
-//                 <FormLabel mb={4}>Email</FormLabel>
-//                 <Input id="email" type="email" ref={inputEmail} />
-//                 <FormLabel mt={5}>Password</FormLabel>
-//                 <Input id="password" type="password" ref={inputPass} />
-//                 <ResetPassword />
-//               </FormControl>
-//               <ModalFooter>
-//                 <Button mr={5} type="submit">
-//                   Login
-//                 </Button>
-//                 <Button onClick={onCloseLogin}>Cancel</Button>
-//               </ModalFooter>
-//             </form>
-//           </ModalBody>
-//         </ModalContent>
-//       </Modal>
-//     </>
-//   );
-// }
+        customClass: {
+          container: "my-swal",
+        },
+      });
+    }
+  };
+
+  return (
+    <>
+      <Button
+        fontWeight={600}
+        href={"#"}
+        onClick={onOpenLogin}
+        pt={{ base: "3", md: 0 }}
+        colorScheme="black"
+        backgroundColor={"orange"}
+        variant="outline"
+        mr={{ base: "2", md: "8" }}
+        fontSize={{ base: "sm", md: "xl" }}
+        display={{ base: "none", md: "inline-flex" }}
+        height={{ base: "50px", md: "60px" }}
+      >
+        Sign In
+      </Button>
+      <Modal isOpen={isOpenLogin} onClose={onCloseLogin}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Sign In to your Account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={5}>
+            <form onSubmit={onLogin}>
+              <FormControl>
+                <FormLabel mb={4}>Email</FormLabel>
+                <Input id="email" type="email" ref={inputEmail} />
+                <FormLabel mt={5}>Password</FormLabel>
+                <Input id="password" type="password" ref={inputPass} />
+              </FormControl>
+
+              <ModalFooter>
+                <Button
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  mr={5}
+                  type="submit"
+                >
+                  Login
+                </Button>
+                <Button onClick={onCloseLogin}>Cancel</Button>
+              </ModalFooter>
+              <ResetPassword/>
+            </form>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};

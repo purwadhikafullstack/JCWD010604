@@ -50,11 +50,11 @@ export default function Card() {
           }}
         >
           <Image
-            rounded={"lg"}
-            height={"300"}
-            width={282}
+            height={"100%"}
+            width={"100%"}
             objectFit={"cover"}
             src={IMAGE}
+            boxShadow={"none"}
           />
         </Box>
         <Stack pt={10} align={"center"}>
@@ -66,9 +66,8 @@ export default function Card() {
           </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
-              Rp.27.999.999
+              Rp.28.999.999
             </Text>
-
           </Stack>
         </Stack>
       </Box>

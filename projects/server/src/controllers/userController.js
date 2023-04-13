@@ -4,13 +4,13 @@ const user = db.User;
 const transporter = require("../helpers/transporter");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const key = process.env.OKAI_SECRET;
+const key = `${process.env.OKAI_SECRET}`;
 const handlebars = require("handlebars");
 const schedule = require("node-schedule");
 const moment = require("moment");
 
 const path = require("path");
-const { FEURL_BASE } = process.env;
+const { REACT_APP_BASE_URL } = process.env;
 
 module.exports = {
   register: async (req, res) => {
@@ -19,18 +19,19 @@ module.exports = {
       const token = jwt.sign({ id: email }, key, {
         expiresIn: "24h",
       });
-
+      console.log(token);
       const tempEmail = fs.readFileSync(
         path.resolve(__dirname, "../template/email.html"),
         "utf-8"
       );
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
-        link: `${FEURL_BASE}/verification/${token}`,
+        // link: `${REACT_APP_BASE_URL}/verification/${token}`,
+        link: `http://localhost:3000/verification-page?token=${token}`,
       });
 
       await transporter.sendMail({
-        from: "Admin",
+        from: "phonehub3434@gmail.com",
         to: email,
         subject: "Verification Email",
         html: tempResult,
@@ -59,6 +60,7 @@ module.exports = {
         email,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -79,7 +81,7 @@ module.exports = {
       const data = await user.update(
         {
           password: hashPass,
-          is_verified: true,
+          isVerified: true,
           role: 1,
           name: userName,
         },
@@ -100,6 +102,7 @@ module.exports = {
   verification: async (req, res) => {
     try {
       const verify = jwt.verify(req.token, key);
+      console.log(verify,104);
 
       res.status(200).send({
         message: "Verification Test",
@@ -136,7 +139,7 @@ module.exports = {
 
       res
         .status(200)
-        .send({ message: "Welcome", token, isUserExist });
+        .send({ message: "Welcome to PhoneHub", token, isUserExist });
     } catch (err) {
       res.status(400).send(err);
     }
@@ -157,6 +160,7 @@ module.exports = {
     }
   },
   emailResetPass: async (req, res) => {
+    
     try {
       const { email } = req.body;
 
@@ -164,29 +168,29 @@ module.exports = {
         where: { email },
         raw: true,
       });
-
+      
       if (!isEmailExist) throw "Email incorrect/not found";
-
+      console.log("test");
       const cekVerified = await user.findOne({
         where: {
           email: email,
-          is_verified: 1,
+          isVerified: 1,
         },
       });
-
+      console.log(cekVerified);
       if (!cekVerified) throw "No User Found";
 
       const token = jwt.sign({ id: email }, key, {
         expiresIn: "24h",
       });
-
+      console.log(token);
       const tempEmail = fs.readFileSync(
         path.resolve(__dirname, "../template/password.html"),
         "utf-8"
       );
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
-        link: `${FEURL_BASE}/resetpassword/${token}`,
+        link: `${REACT_APP_BASE_URL}/resetpassword/${token}`,
       });
 
       await transporter.sendMail({

@@ -50,7 +50,7 @@ export default function Footer() {
               <Logo color={useColorModeValue("gray.700", "white")} />
             </Box>
             <Text fontSize={"sm"}>
-              © 2022 Chakra Templates. All rights reserved
+              © 2022 Phonehub. All rights reserved
             </Text>
           </Stack>
           <Stack align={"flex-start"}>
