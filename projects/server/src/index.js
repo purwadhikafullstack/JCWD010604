@@ -4,18 +4,40 @@ const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
 const db = require("./models");
-const path = require("path");
 const bearerToken = require("express-bearer-token");
+const rajaOngkir = require("./routes/rajaOngkirRoute");
+const {
+  user,
+  userProfile,
+  userAddress,
+  admin,
+  orderList,
+} = require("./routes");
+const {
+  userComp,
+  warehouseComp,
+  productComp,
+  categoryComp,
+  userOrderList,
+  stocksComp,
+  mutationComp,
+  journalComp,
+  // salesAdmin,
+} = admin;
+const { getProduct } = require("./routes/product");
+
+const path = require("path");
 const PORT = process.env.PORT || 8000;
 const app = express();
-app.use(
-  cors({
-    // origin: [
-    //   process.env.WHITELISTED_DOMAIN &&
-    //     process.env.WHITELISTED_DOMAIN.split(","),
-    // ],
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: [
+//       process.env.WHITELISTED_DOMAIN &&
+//         process.env.WHITELISTED_DOMAIN.split(","),
+//     ],
+//   })
+// );
 
 app.use(express.json());
 app.use(bearerToken());
@@ -36,6 +58,29 @@ app.get("/api/greetings", (req, res, next) => {
   });
 });
 
+// user
+app.use("/api", user);
+app.use("/api", userProfile);
+app.use("/api", userAddress);
+app.use("/api", getProduct);
+app.use("/api", orderList);
+// app.use("/api", cart);
+// app.use("/api", shipment);
+
+// admin
+app.use(
+  "/api",
+  userComp,
+  warehouseComp,
+  rajaOngkir,
+  productComp,
+  categoryComp,
+  userOrderList,
+  stocksComp,
+  mutationComp,
+   journalComp,
+  // salesAdmin
+);
 // ===========================
 const {
   user

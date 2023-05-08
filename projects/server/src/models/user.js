@@ -8,18 +8,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-
       // define association here
       User.hasMany(models.Address_User, {
         foreignKey: "IdUser",
       });
-      // User.hasMany(models.Transaction, {
-      //   foreignKey: "IdUser",
-      // });
-      // User.hasOne(models.Cart, {
-      //   foreignKey: "IdUser",
-      // });
-    //   User.hasOne(models.Warehouse);
+      User.hasMany(models.Transaction, {
+        foreignKey: "IdUser",
+      });
+      User.hasOne(models.Cart, {
+        foreignKey: "IdUser",
+      });
+      User.hasOne(models.Warehouse);
     }
   }
   User.init(
@@ -32,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       otp: DataTypes.INTEGER,
       picture: {
         type: DataTypes.STRING(100),
-        defaultValue: "/public/5.png",
+        defaultValue: "/public/default.png",
       },
     },
     {

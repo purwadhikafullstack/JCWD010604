@@ -1,13 +1,12 @@
 const { createTransport } = require("nodemailer");
-const nodemailer = require("nodemailer");
 
 const transporter = createTransport({
-  host: "smtp.gmail.com",
   service: "gmail",
+  host: "smtp.gmail.com",
   port: "port 465",
   auth: {
-    user: "phonehub3434@gmail.com",
-    pass: "ijcytnkpzxybfozf",
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS,
   },
   tls: {
     rejectUnauthorized: false,

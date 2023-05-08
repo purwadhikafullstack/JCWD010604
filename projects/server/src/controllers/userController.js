@@ -19,15 +19,14 @@ module.exports = {
       const token = jwt.sign({ id: email }, key, {
         expiresIn: "24h",
       });
-      console.log(token);
+
       const tempEmail = fs.readFileSync(
         path.resolve(__dirname, "../template/email.html"),
         "utf-8"
       );
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
-        // link: `${REACT_APP_BASE_URL}/verification/${token}`,
-        link: `http://localhost:3000/verification-page?token=${token}`,
+        link: `${FEURL_BASE}/verification-page?token=${token}`,
       });
 
       await transporter.sendMail({
@@ -118,6 +117,7 @@ module.exports = {
       const { email, password } = req.body;
 
       const isUserExist = await user.findOne({
+        
         where: {
           email: email ? email : "",
         },
@@ -125,6 +125,8 @@ module.exports = {
       });
       if (!isUserExist) throw "User not Found!";
 
+
+      // hashed compare
       const isValid = await bcrypt.compare(password, isUserExist.password);
       if (!isValid) throw "Wrong Password";
 
@@ -153,14 +155,14 @@ module.exports = {
         },
         raw: true,
       });
-
+      // console.log(isUserExist);
       res.status(200).send(isUserExist);
     } catch (err) {
+      console.log(err)
       res.status(400).send(err);
     }
   },
   emailResetPass: async (req, res) => {
-    
     try {
       const { email } = req.body;
 
@@ -168,22 +170,21 @@ module.exports = {
         where: { email },
         raw: true,
       });
-      
+
       if (!isEmailExist) throw "Email incorrect/not found";
-      console.log("test");
+
       const cekVerified = await user.findOne({
         where: {
           email: email,
-          isVerified: 1,
+          is_verified: 1,
         },
       });
-      console.log(cekVerified);
+
       if (!cekVerified) throw "No User Found";
 
       const token = jwt.sign({ id: email }, key, {
         expiresIn: "24h",
       });
-      console.log(token);
       const tempEmail = fs.readFileSync(
         path.resolve(__dirname, "../template/password.html"),
         "utf-8"
