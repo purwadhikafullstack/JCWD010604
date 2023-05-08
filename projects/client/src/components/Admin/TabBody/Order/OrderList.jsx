@@ -40,7 +40,7 @@ export const OrderList = () => {
 
   const rejectOrder = async (order) => {
     try {
-      const once = await swal("Reject this order?", {
+      const once = await swal.fire("Reject this order?", {
         dangerMode: true,
         buttons: true,
       });
@@ -63,7 +63,7 @@ export const OrderList = () => {
 
   const confirmOrder = async (order) => {
     try {
-      const once = await swal("Confirm this order?", {
+      const once = await swal.fire("Confirm this order?", {
         dangerMode: true,
         buttons: true,
       });
@@ -88,7 +88,7 @@ export const OrderList = () => {
 
   const sendOrder = async (order) => {
     try {
-      const once = await swal("Send this order?", {
+      const once = await swal.fire("Send this order?", {
         dangerMode: true,
         buttons: true,
       });
