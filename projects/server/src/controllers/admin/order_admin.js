@@ -151,6 +151,7 @@ module.exports = {
       });
       res.status(200).send({ message: "Warehouse List", result: allWarehouse });
     } catch (error) {
+      console.log(error)
       res.status(400).send(error);
     }
   },
@@ -162,6 +163,7 @@ module.exports = {
       });
       res.status(200).send({ message: "Status List", result: allStatus });
     } catch (error) {
+      console.log(error)
       res.status(400).send(error);
     }
   },
@@ -188,28 +190,29 @@ module.exports = {
       if (userTransaction.OrderStatusId === 2) {
         await Transaction.update({ OrderStatusId: 1 }, { where: { id: id } });
 
-        const tempEmail = fs.readFileSync(
-          path.resolve(__dirname, "../../template/order-reject.html"),
-          "utf-8"
-        );
-        const tempCompile = handlebars.compile(tempEmail);
-        const tempResult = tempCompile({
-          link: `${FEURL_BASE}/order-list`,
-          transactionInformation: userTransaction,
-          price: userTransaction.final_price.toLocaleString(),
-          email: user.email,
-        });
+        // const tempEmail = fs.readFileSync(
+        //   path.resolve(__dirname, "../../template/order-reject.html"),
+        //   "utf-8"
+        // );
+        // const tempCompile = handlebars.compile(tempEmail);
+        // const tempResult = tempCompile({
+        //   link: `${FEURL_BASE}/order-list`,
+        //   transactionInformation: userTransaction,
+        //   price: userTransaction.final_price.toLocaleString(),
+        //   email: user.email,
+        // });
 
-        await transporter.sendMail({
-          from: "Admin",
-          to: user.email,
-          subject: `Order Rejected`,
-          html: tempResult,
-        });
+        // await transporter.sendMail({
+        //   from: "Admin",
+        //   to: user.email,
+        //   subject: `Order Rejected`,
+        //   html: tempResult,
+        // });
         return res.status(201).send({ message: "Success Reject Order" });
       }
       return res.status(200).send({ message: "Reject Order" });
     } catch (error) {
+      console.log(error)
       res.status(400).send(error);
     }
   },
@@ -526,27 +529,28 @@ module.exports = {
         raw: true,
       });
 
-      const tempEmail = fs.readFileSync(
-        path.resolve(__dirname, "../../template/order-process.html"),
-        "utf-8"
-      );
-      const tempCompile = handlebars.compile(tempEmail);
-      const tempResult = tempCompile({
-        link: `${FEURL_BASE}/order-list`,
-        transactionInformation: userTransaction,
-        price: userTransaction.final_price.toLocaleString(),
-        email: user.email,
-      });
+      // const tempEmail = fs.readFileSync(
+      //   path.resolve(__dirname, "../../template/order-process.html"),
+      //   "utf-8"
+      // );
+      // const tempCompile = handlebars.compile(tempEmail);
+      // const tempResult = tempCompile({
+      //   link: `${FEURL_BASE}/order-list`,
+      //   transactionInformation: userTransaction,
+      //   price: userTransaction.final_price.toLocaleString(),
+      //   email: user.email,
+      // });
 
-      await transporter.sendMail({
-        from: "Admin",
-        to: user.email,
-        subject: `Order in Process`,
-        html: tempResult,
-      });
+      // await transporter.sendMail({
+      //   from: "Admin",
+      //   to: user.email,
+      //   subject: `Order in Process`,
+      //   html: tempResult,
+      // });
 
       return res.status(201).send({ message: "Success Confirm Order" });
     } catch (error) {
+      console.log(error)
       res.status(400).send(error);
     }
   },
@@ -598,27 +602,28 @@ module.exports = {
         raw: true,
       });
 
-      const tempEmail = fs.readFileSync(
-        path.resolve(__dirname, "../../template/order-send.html"),
-        "utf-8"
-      );
-      const tempCompile = handlebars.compile(tempEmail);
-      const tempResult = tempCompile({
-        link: `${FEURL_BASE}/order-list`,
-        transactionInformation: userTransaction,
-        price: userTransaction.final_price.toLocaleString(),
-        email: user.email,
-      });
+      // const tempEmail = fs.readFileSync(
+      //   path.resolve(__dirname, "../../template/order-send.html"),
+      //   "utf-8"
+      // );
+      // const tempCompile = handlebars.compile(tempEmail);
+      // const tempResult = tempCompile({
+      //   link: `${FEURL_BASE}/order-list`,
+      //   transactionInformation: userTransaction,
+      //   price: userTransaction.final_price.toLocaleString(),
+      //   email: user.email,
+      // });
 
-      await transporter.sendMail({
-        from: "Admin",
-        to: user.email,
-        subject: `Order on the wayyyyy`,
-        html: tempResult,
-      });
+      // await transporter.sendMail({
+      //   from: "Admin",
+      //   to: user.email,
+      //   subject: `Order on the wayyyyy`,
+      //   html: tempResult,
+      // });
 
       return res.status(201).send({ message: "Success Send Order" });
     } catch (error) {
+      console.log(error)
       res.status(400).send(error);
     }
   },
