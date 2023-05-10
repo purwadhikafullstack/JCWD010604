@@ -30,7 +30,7 @@ import {
 } from "@chakra-ui/react";
 
 // logo
-import PasarHP from "../Assets/PasarHP.png";
+import PasarHP from "../assets/Phonehub_logo.png";
 
 // icon
 import { FiMenu } from "react-icons/fi";

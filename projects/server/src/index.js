@@ -1,4 +1,5 @@
-require("dotenv/config");
+
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
@@ -121,4 +122,5 @@ app.listen(PORT, (err) => {
     console.log(`APP RUNNING at ${PORT} ✅`);
     // db.sequelize.sync({ alter: true });
   }
+  
 });
