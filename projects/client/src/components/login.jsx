@@ -4,8 +4,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/userSlice";
 import Swal from "sweetalert2";
-import { ResetPassword } from "./ResetPasswordModal";
-
 import {
   Button,
   Modal,
@@ -23,7 +21,7 @@ import {
 
 const url = process.env.REACT_APP_API_BASE_URL;
 
-export const Login= () => {
+export const Login = () => {
   const {
     isOpen: isOpenLogin,
     onOpen: onOpenLogin,
@@ -44,6 +42,7 @@ export const Login= () => {
       };
 
       const result = await axios.post(`${url}/user/login`, user);
+      
       dispatch(
         login({
           id: result.data.id,
@@ -52,7 +51,8 @@ export const Login= () => {
           isVerified: result.data.isVerified,
           role: result.data.role,
           picture: result.data.picture,
-        })
+        }),
+        // console.log(result.data.isUserExist.role)
       );
 
       if (
@@ -63,6 +63,7 @@ export const Login= () => {
       }
 
       localStorage.setItem("token", result.data.token);
+      // console.log(result.data.token)
 
       Swal.fire({
         icon: "success",
@@ -91,17 +92,13 @@ export const Login= () => {
   return (
     <>
       <Button
+        display={{ base: "solid", md: "inline-flex" }}
+        fontSize={"sm"}
         fontWeight={600}
+        colorScheme="teal"
         href={"#"}
         onClick={onOpenLogin}
         pt={{ base: "3", md: 0 }}
-        colorScheme="black"
-        backgroundColor={"orange"}
-        variant="outline"
-        mr={{ base: "2", md: "8" }}
-        fontSize={{ base: "sm", md: "xl" }}
-        display={{ base: "none", md: "inline-flex" }}
-        height={{ base: "50px", md: "60px" }}
       >
         Sign In
       </Button>
@@ -118,7 +115,6 @@ export const Login= () => {
                 <FormLabel mt={5}>Password</FormLabel>
                 <Input id="password" type="password" ref={inputPass} />
               </FormControl>
-
               <ModalFooter>
                 <Button
                   bg={"blue.400"}
@@ -133,11 +129,10 @@ export const Login= () => {
                 </Button>
                 <Button onClick={onCloseLogin}>Cancel</Button>
               </ModalFooter>
-              <ResetPassword/>
             </form>
           </ModalBody>
         </ModalContent>
       </Modal>
     </>
   );
-};
+}

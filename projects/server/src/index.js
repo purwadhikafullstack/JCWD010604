@@ -82,16 +82,6 @@ app.use(
   // salesAdmin
 );
 // ===========================
-const {
-  user
-} = require("./routes");
-app.use("/api", user);
-
-
-
-
-
-
 
 // not found
 app.use((req, res, next) => {

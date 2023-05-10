@@ -1,4 +1,3 @@
-
 import "./App.css";
 
 // react
@@ -11,28 +10,25 @@ import { ProtectingRoute } from "./components/ProtectingRoute";
 
 // pages
 import { AdminPage } from "./pages/AdminPage";
-import { LoginPage } from "./pages/Loginpage";
+import { LoginPage } from "./pages/LoginPage";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./redux/userSlice";
-
 
 import logo from "./logo.svg";
 import Home from "./pages/home";
 import ProductDetail from "./components/productdetail";
 import { ProductDetailImage } from "./components/productdetail_image";
 import { RegisterModal } from "./components/register";
-import { Login } from "./components/login";
+import { Login } from "./components/Login";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { VerificationPage } from "./pages/VerificationPage";
-import { cartUser } from "./redux/cartSlice";import { login } from "./redux/userSlice";
+import { cartUser } from "./redux/cartSlice";
 import { UnAuthorizedRequest } from "./pages/UnAuthorized";
 import { NotFoundPage } from "./pages/NotFound";
 
-
 const url = process.env.REACT_APP_API_BASE_URL;
-
 
 function App() {
   const dispatch = useDispatch();

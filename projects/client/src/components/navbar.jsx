@@ -14,7 +14,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import Phonehub_logo from "../assets/Phonehub_logo.png";
 import React from "react";
 import { RegisterModal } from "./register";
-import { Login } from "./login";
+import { Login } from "./Login";
 
 export default function Navbar() {
   return (
@@ -78,11 +78,7 @@ export default function Navbar() {
           </InputGroup>
         </Flex>
         <Flex justifyContent={{ base: "center", md: "flex-end" }}>
-          <Login
-
-          >
-            Masuk
-          </Login>
+          <Login>Masuk</Login>
           <RegisterModal
             colorScheme="orange"
             textColor={"orange"}

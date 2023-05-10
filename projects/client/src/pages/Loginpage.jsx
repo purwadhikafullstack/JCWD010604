@@ -1,12 +1,10 @@
-import { Login } from "../components/Login"
-import {
-    Stack,
-  } from '@chakra-ui/react';
+import { Login } from "../components/Login";
+import { Stack } from "@chakra-ui/react";
 
 export const LoginPage = () => {
-    return(
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-        <Login/>
+  return (
+    <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
+      <Login />
     </Stack>
-    )
-}
+  );
+};
