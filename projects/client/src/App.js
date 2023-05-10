@@ -10,7 +10,6 @@ import { ProtectingRoute } from "./components/ProtectingRoute";
 
 // pages
 import { AdminPage } from "./pages/AdminPage";
-import { LoginPage } from "./pages/LoginPage";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -80,7 +79,6 @@ function App() {
         {/* not found  */}
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/401" element={<UnAuthorizedRequest />} />
-        <Route path="/" element={<LoginPage />} />
 
         {/* admin */}
         {role === 1 ? null : (
