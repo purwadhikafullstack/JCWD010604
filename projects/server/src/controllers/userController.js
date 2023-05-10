@@ -1,14 +1,16 @@
-const db = require("../models");
 const fs = require("fs");
-const transporter = require("../helpers/transporter");
+const db = require("../models");
 const user = db.User;
+const transporter = require("../helpers/transporter");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const key = `${process.env.OKAI_SECRET}`;
 const handlebars = require("handlebars");
 const schedule = require("node-schedule");
 const moment = require("moment");
-// const _ = require("lodash");
+
+const path = require("path");
+const { REACT_APP_BASE_URL } = process.env;
 
 module.exports = {
   register: async (req, res) => {
@@ -24,11 +26,11 @@ module.exports = {
       );
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
-        link: `${FEURL_BASE}/verification/${token}`,
+        link: `${FEURL_BASE}/verification-page?token=${token}`,
       });
 
       await transporter.sendMail({
-        from: "Admin",
+        from: "phonehub3434@gmail.com",
         to: email,
         subject: "Verification Email",
         html: tempResult,
@@ -57,6 +59,7 @@ module.exports = {
         email,
       });
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   },
@@ -77,7 +80,7 @@ module.exports = {
       const data = await user.update(
         {
           password: hashPass,
-          is_verified: true,
+          isVerified: true,
           role: 1,
           name: userName,
         },
@@ -98,6 +101,7 @@ module.exports = {
   verification: async (req, res) => {
     try {
       const verify = jwt.verify(req.token, key);
+      console.log(verify,104);
 
       res.status(200).send({
         message: "Verification Test",
@@ -113,6 +117,7 @@ module.exports = {
       const { email, password } = req.body;
 
       const isUserExist = await user.findOne({
+        
         where: {
           email: email ? email : "",
         },
@@ -120,14 +125,10 @@ module.exports = {
       });
       if (!isUserExist) throw "User not Found!";
 
-      // hashed compare
-      // const isValid = await bcrypt.compare(password, isUserExist.password);
-      // if (!isValid) throw "Wrong Password";
 
-      // plain compare
-      if (isUserExist.password !== password) {
-        throw "Wrong password";
-      }
+      // hashed compare
+      const isValid = await bcrypt.compare(password, isUserExist.password);
+      if (!isValid) throw "Wrong Password";
 
       const payload = {
         id: isUserExist.id,
@@ -138,13 +139,10 @@ module.exports = {
       };
       const token = jwt.sign(payload, key);
 
-      delete isUserExist.password;
-
       res
         .status(200)
-        .send({ message: "Welcome to PasarHP", token, isUserExist });
+        .send({ message: "Welcome to PhoneHub", token, isUserExist });
     } catch (err) {
-      console.error(err);
       res.status(400).send(err);
     }
   },
@@ -187,14 +185,13 @@ module.exports = {
       const token = jwt.sign({ id: email }, key, {
         expiresIn: "24h",
       });
-
       const tempEmail = fs.readFileSync(
         path.resolve(__dirname, "../template/password.html"),
         "utf-8"
       );
       const tempCompile = handlebars.compile(tempEmail);
       const tempResult = tempCompile({
-        link: `${FEURL_BASE}/resetpassword/${token}`,
+        link: `${REACT_APP_BASE_URL}/resetpassword/${token}`,
       });
 
       await transporter.sendMail({

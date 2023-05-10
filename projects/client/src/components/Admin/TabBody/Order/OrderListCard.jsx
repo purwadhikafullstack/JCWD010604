@@ -14,7 +14,7 @@ import {
   } from "@chakra-ui/react";
   import { GrSend } from "react-icons/gr";
   
-  import mpay from "../../../../Assets/mpay.png";
+  import mpay from "../../../../assets/mpay.png";
   
   const baseServer = process.env.REACT_APP_SERVER;
   

@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "name": "Product 1",
+      "price": 10.0,
+      "image": "https://via.placeholder.com/100x100"
+    },
+    {
+      "name": "Product 2",
+      "price": 20.0,
+      "image": "https://via.placeholder.com/100x100"
+    },
+    {
+      "name": "Product 3",
+      "price": 30.0,
+      "image": "https://via.placeholder.com/100x100"
+    }
+  ]
+}
