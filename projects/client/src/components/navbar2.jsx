@@ -15,7 +15,7 @@ import {
 import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
-import Categories from "../components/categories";
+import { Categories } from "./Categories";
 const Links = [
   { label: "Home", component: FeatureBox },
   { label: "Promo", component: Categories },
@@ -51,7 +51,7 @@ export default function Navbar2() {
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={8}>
+      <Box bg={useColorModeValue("gray.100", "gray.900")}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <HStack spacing={8} alignItems={"center"}>
             <HStack

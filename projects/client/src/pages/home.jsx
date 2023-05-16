@@ -1,5 +1,5 @@
 import { Center, Flex, Box, HStack } from "@chakra-ui/react";
-import Navbar4 from "../components/navbar";
+import { Navbar } from "../components/navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 // import { axiosInstance } from "../config/config";
@@ -8,7 +8,7 @@ import Navbar5 from "../components/navbar2";
 import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
-import Categories from "../components/categories";
+import { Categories } from "../components/Categories";
 import ProductDetail from "../components/productdetail";
 import { Link } from "react-router-dom";
 // import { Login } from "./components/login";
@@ -19,8 +19,8 @@ export default function Home() {
   return (
     <>
       <Box bgColor={"#FAFAFA"} minW={821}>
-        <Navbar4 />
-        <Box position="sticky" top="0" zIndex={"999"}>
+        <Navbar />
+        <Box>
           <Navbar5 />
         </Box>
         <Box>
@@ -49,7 +49,6 @@ export default function Home() {
           <Link to="/productdetail">
             <Card />
           </Link>
-  
         </Flex>
 
         <Box paddingTop={"60pt"}>

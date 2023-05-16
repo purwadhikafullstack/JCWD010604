@@ -67,12 +67,13 @@ export const RegisterModal = () => {
     <>
       <Button
         colorScheme="orange"
+        fontWeight={500}
         textColor={"orange"}
         variant="outline"
         backgroundColor={"black"}
         fontSize={{ base: "sm", md: "xl" }}
         display={{ base: "none", md: "inline-flex" }}
-        height={{ base: "50px", md: "60px" }}
+        height={{ base: "50px", md: "50px" }}
         onClick={onOpen}
       >
         Sign Up

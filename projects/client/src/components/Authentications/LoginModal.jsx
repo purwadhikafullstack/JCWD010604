@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { login } from "../redux/userSlice";
+import { login } from "../../redux/userSlice";
 import Swal from "sweetalert2";
 import {
   Button,
@@ -42,7 +42,7 @@ export const Login = () => {
       };
 
       const result = await axios.post(`${url}/user/login`, user);
-      
+
       dispatch(
         login({
           id: result.data.id,
@@ -51,7 +51,7 @@ export const Login = () => {
           isVerified: result.data.isVerified,
           role: result.data.role,
           picture: result.data.picture,
-        }),
+        })
         // console.log(result.data.isUserExist.role)
       );
 
@@ -92,13 +92,17 @@ export const Login = () => {
   return (
     <>
       <Button
-        display={{ base: "solid", md: "inline-flex" }}
-        fontSize={"sm"}
-        fontWeight={600}
-        colorScheme="teal"
+        fontWeight={500}
         href={"#"}
         onClick={onOpenLogin}
         pt={{ base: "3", md: 0 }}
+        colorScheme="orange"
+        textColor={"orange"}
+        variant="outline"
+        backgroundColor={"black"}
+        fontSize={{ base: "sm", md: "xl" }}
+        display={{ base: "none", md: "inline-flex" }}
+        height={{ base: "50px", md: "50px" }}
       >
         Sign In
       </Button>
@@ -135,4 +139,4 @@ export const Login = () => {
       </Modal>
     </>
   );
-}
+};
