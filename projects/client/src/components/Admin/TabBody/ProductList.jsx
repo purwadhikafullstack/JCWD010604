@@ -140,7 +140,7 @@ export const ProductList = () => {
   }, [getProducts]);
 
   const tableHead = [
-    { name: "Id", origin: "id", width: "50px" },
+    { name: "No", origin: "No", width: "50px" },
     { name: "Name", origin: "name", width: "200px" },
     { name: "Desc", origin: "desc", width: "500px" },
     { name: "Price", origin: "price", width: "200px" },
@@ -283,7 +283,7 @@ export const ProductList = () => {
               return (
                 <Tbody key={index} bg={"#EEEEEE"} _hover={{ bg: "#d6d6d6" }}>
                   <Tr>
-                    <Td>{item.id}</Td>
+                    <Td>{index + 1}</Td>
                     <Td whiteSpace={"pre-wrap"}>{item.name}</Td>
                     <Td whiteSpace={"pre-wrap"}>{item.desc}</Td>
                     <Td textAlign={"center"}>{rupiahID.format(item.price)}</Td>

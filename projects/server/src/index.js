@@ -1,5 +1,6 @@
-
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+//require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
@@ -26,7 +27,7 @@ const {
 } = admin;
 const { getProduct } = require("./routes/product");
 
-const path = require("path");
+
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
