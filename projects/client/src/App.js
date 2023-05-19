@@ -6,7 +6,7 @@ import { useEffect, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // components
-import { ProtectingRoute } from "./components/ProtectingRoute";
+//import { ProtectingRoute } from "./components/ProtectingRoute";
 
 // pages
 import { AdminPage } from "./pages/AdminPage";

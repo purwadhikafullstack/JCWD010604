@@ -1,20 +1,15 @@
-import { Center, Flex, Box, HStack } from "@chakra-ui/react";
+import { Center, Flex, Box } from "@chakra-ui/react";
 import { Navbar } from "../components/navbar";
-import { useState, useEffect } from "react";
-import axios from "axios";
-// import { axiosInstance } from "../config/config";
+
 import CarouselBanner from "../components/carousel";
 import Navbar5 from "../components/navbar2";
 import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
 import { Categories } from "../components/Categories";
-import ProductDetail from "../components/productdetail";
 import { Link } from "react-router-dom";
-// import { Login } from "./components/login";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
 
   return (
     <>

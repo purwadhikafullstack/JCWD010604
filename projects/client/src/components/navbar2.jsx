@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   Box,
   Flex,
@@ -41,7 +41,9 @@ const NavLink = ({ children, onClick }) => (
 );
 
 export default function Navbar2() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
+
+  // eslint-disable-next-line
   const [activeComponent, setActiveComponent] = React.useState(FeatureBox);
 
   const handleLinkClick = (component) => {
