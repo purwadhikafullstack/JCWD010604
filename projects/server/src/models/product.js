@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "Product_Warehouses",
       });
       Product.hasMany(models.Product_Warehouses, { as: "Details" });
-      Product.belongsTo(models.Product_Category, { as: "product_categories" });
+      Product.belongsTo(models.Product_Category);
       Product.hasMany(models.Transaction_Product_Warehouses);
     }
   }
