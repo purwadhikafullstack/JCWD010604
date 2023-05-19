@@ -15,7 +15,7 @@ import {
 import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
-import { Categories } from "./Categories";
+import  Categories  from "./Categories";
 const Links = [
   { label: "Home", component: FeatureBox },
   { label: "Promo", component: Categories },
