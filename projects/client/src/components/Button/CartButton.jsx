@@ -15,7 +15,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import emptyCart from "../../Assets/Empty-cart.png"
+import emptyCart from "../../assets/Empty-cart.png"
 
 import { useNavigate, Link } from "react-router-dom";
 
