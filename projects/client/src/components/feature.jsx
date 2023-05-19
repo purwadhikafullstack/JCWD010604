@@ -30,7 +30,7 @@ export default function FeatureBox() {
           icon={<Icon as={FcAssistant} w={10} h={10} alignContent={"center"}/>}
           title={"24/7 Support"}
           text={
-            "Kita siap membantu 24/7 dengan customer service kita"
+            "Kami siap membantu 24/7 dengan customer service kita"
           }
         />
         <Feature

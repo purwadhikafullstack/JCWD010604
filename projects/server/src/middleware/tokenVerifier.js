@@ -28,7 +28,7 @@ module.exports = {
 
       if (token === "null" || !token) throw "Unauthorized Request";
 
-      let verifiedUser = jwt.verify(token, process.env.OKAI_SECRET);
+      let verifiedUser = jwt.verify(token, key);
       console.log(32,verifiedUser);
       if (!verifiedUser) throw "Verify token failed";
 

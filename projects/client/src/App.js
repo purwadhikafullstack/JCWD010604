@@ -15,12 +15,11 @@ import { AdminPage } from "./pages/AdminPage";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./redux/userSlice";
 
-import logo from "./logo.svg";
 import Home from "./pages/home";
 import ProductDetail from "./components/productdetail";
 import { ProductDetailImage } from "./components/productdetail_image";
-import { RegisterModal } from "./components/register";
-import { Login } from "./components/Login";
+import { RegisterModal } from "./components/Authentications/RegisterModal";
+import { Login } from "./components/Authentications/LoginModal";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { VerificationPage } from "./pages/VerificationPage";
 import { cartUser } from "./redux/cartSlice";

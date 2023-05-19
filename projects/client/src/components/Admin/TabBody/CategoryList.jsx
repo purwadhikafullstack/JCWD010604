@@ -115,7 +115,7 @@ export const CategoryList = () => {
   }, [getCategory]);
 
   const tableHead = [
-    { name: "Id", origin: "Id", width: "100px" },
+    { name: "No", origin: "No", width: "100px" },
     { name: "Category", origin: "category", width: "" },
   ];
 
@@ -224,7 +224,7 @@ export const CategoryList = () => {
               return (
                 <Tbody key={index} bg={"#EEEEEE"} _hover={{ bg: "#d6d6d6" }}>
                   <Tr>
-                    <Td textAlign={"center"}>{item.id}</Td>
+                    <Td textAlign={"center"}>{index+1}</Td>
                     <Td>{item.category}</Td>
                     {role === 3 ? (
                       <Td>
