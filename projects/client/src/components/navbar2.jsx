@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   Box,
   Flex,
@@ -15,7 +15,7 @@ import {
 import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
-import { Categories } from "./Categories";
+import  Categories  from "./Categories";
 const Links = [
   { label: "Home", component: FeatureBox },
   { label: "Promo", component: Categories },
@@ -41,7 +41,9 @@ const NavLink = ({ children, onClick }) => (
 );
 
 export default function Navbar2() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
+
+  // eslint-disable-next-line
   const [activeComponent, setActiveComponent] = React.useState(FeatureBox);
 
   const handleLinkClick = (component) => {

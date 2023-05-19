@@ -21,8 +21,7 @@ import {
   IconButton,
   Stack,
   Skeleton,
-  Text,
-  Button,
+  Text
 } from "@chakra-ui/react";
 
 // swal
