@@ -155,7 +155,7 @@ export const MutationList = () => {
   }, [getMutations]);
 
   const tableHead = [
-    { name: "Id", origin: "id", width: "50px" },
+    { name: "No", origin: "Id", width: "50px" },
     { name: "Request Warehouse", origin: "IdWarehouseTo", width: "100px" },
     { name: "Response Warehouse", origin: "IdWarehouseFrom", width: "100px" },
     { name: "Product Id", origin: "ProductId", width: "150px" },
@@ -291,7 +291,7 @@ export const MutationList = () => {
               return (
                 <Tbody key={index} bg={"#EEEEEE"} _hover={{ bg: "#d6d6d6" }}>
                   <Tr>
-                    <Td textAlign={"center"}>{item.id}</Td>
+                    <Td textAlign={"center"}>{index+1}</Td>
                     <Td textAlign={"center"}>{item.IdWarehouseTo}</Td>
                     <Td textAlign={"center"}>{item.IdWarehouseFrom}</Td>
                     <Td textAlign={"center"}>{item.ProductId}</Td>
