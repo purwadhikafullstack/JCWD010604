@@ -6,7 +6,7 @@ import Navbar5 from "../components/navbar2";
 import FeatureBox from "../components/feature";
 import Card from "../components/homeproduct";
 import Footer from "../components/footer";
-import Categories from "../components/Categories";
+import { Categories } from "../components/Categories";
 import { Link } from "react-router-dom";
 
 export default function Home() {

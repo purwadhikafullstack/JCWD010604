@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const baseApi = process.env.REACT_APP_API_BASE_URL;
 
-  const Categories = () => {
+  export const Categories = () => {
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
 
